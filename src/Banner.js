@@ -49,7 +49,7 @@ const Banner = () => {
                 </h1>
             </div>
 
-            <div className='banner_fadebutton' />
+            <div className='banner_fadeButton' />
 
         </header>
     )
