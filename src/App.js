@@ -6,7 +6,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import LoginScreen from './screens/LoginScreen';
 import { auth } from './firebase';
 import { useDispatch, useSelector } from 'react-redux';
-import {login, logout, selectUser} from './features/userSlice';
+import { login, logout, selectUser } from './features/userSlice';
+import ProfileScreen from './screens/ProfileScreen';
 
 function App() {
   const user = useSelector(selectUser);
@@ -23,11 +24,11 @@ function App() {
         }))
       } else {
         // Logged Out
-        dispatch(logout);
+        dispatch(logout());
       }
     });
     return unsubscribe;
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="app">
@@ -35,15 +36,21 @@ function App() {
       <Router>
         {!user ? (
           <LoginScreen />
-        ) :
+        ) : (
           <Switch>
+
             <Route exact path="/">
               <HomeScreen />
             </Route>
-          </Switch>
-        }
 
+            <Route path="/profile">
+              <ProfileScreen />
+            </Route>
+
+          </Switch>
+        )}
       </Router>
+
     </div>
   );
 }
